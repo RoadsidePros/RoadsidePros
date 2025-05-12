@@ -14,6 +14,7 @@ jobs:
 
     steps:
       # Checkout the repository
+
       - name: Checkout code
         uses: actions/checkout@v3
 
@@ -21,7 +22,7 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: stable
+          flutter-version: '3.19.6'
 
       # Regenerate Android directory
       - name: Regenerate Android directory
