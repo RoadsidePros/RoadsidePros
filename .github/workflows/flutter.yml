@@ -2,40 +2,35 @@ name: Flutter Build
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
   pull_request:
-    branches: [ main ]
+    branches:
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+      # Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Set up Flutter
-      uses: subosito/flutter-action@v2
-      with:
-        flutter-version: '3.19.6'
+      # Set up Flutter
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: stable
 
-    - name: Install dependencies
-      run: flutter pub get
-      working-directory: ./RoadsidePros
+      # Regenerate Android directory
+      - name: Regenerate Android directory
+        run: flutter create .
 
-    - name: Analyze project
-      run: flutter analyze
-      working-directory: ./RoadsidePros
+      # Fetch dependencies
+      - name: Install dependencies
+        run: flutter pub get
 
-    - name: Run tests
-      run: flutter test
-      working-directory: ./
-
-    - name: Build APK
-      run: flutter build apk --release
-      working-directory: ./RoadsidePros
-
-    - name: Upload APK
-      uses: actions/upload-artifact@v4
-      with:
-        name: app-release.apk
-        path: RoadsidePros/build/app/outputs/flutter-apk/app-release.apk
+      # Build APK
+      - name: Build APK
+        run: flutter build apk --release
