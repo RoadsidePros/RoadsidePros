@@ -31,8 +31,13 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-
-
       # Build APK
       - name: Build APK
         run: flutter build apk --release
+
+      # Upload APK as artifact
+      - name: Upload APK
+      uses: actions/upload-artifact@v3
+      with:
+        name: app-release
+        path: build/app/outputs/flutter-apk/app-release.apk
