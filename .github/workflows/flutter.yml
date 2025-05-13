@@ -23,6 +23,11 @@ jobs:
         with:
           flutter-version: '3.19.6'
 
+      # Rename Project
+      - name: Rename project folder to lowercase
+        run: |
+          mv RoadsidePros roadsidepros
+
       # Regenerate Android directory
       - name: Regenerate Android directory
         run: flutter create .
@@ -31,10 +36,7 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-      # Rename Project
-      - name: Rename project folder to lowercase
-        run: |
-          mv RoadsidePros roadsidepros
+
 
       # Build APK
       - name: Build APK
