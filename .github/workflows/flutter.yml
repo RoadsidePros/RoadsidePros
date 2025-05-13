@@ -13,11 +13,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Rename project folder to lowercase
-      - name: Rename project folder to lowercase
-        run: |
-          mv RoadsidePros roadsidepros
 
+    
       # Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v3
@@ -35,6 +32,11 @@ jobs:
       # Fetch dependencies
       - name: Install dependencies
         run: flutter pub get
+
+      # Rename Project
+      - name: Rename project folder to lowercase
+  	run: |
+          mv RoadsidePros roadsidepros
 
       # Build APK
       - name: Build APK
