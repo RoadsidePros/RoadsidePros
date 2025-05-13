@@ -13,8 +13,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout the repository
+      # Rename project folder to lowercase
+      - name: Rename project folder to lowercase
+        run: |
+          mv RoadsidePros roadsidepros
 
+      # Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v3
 
