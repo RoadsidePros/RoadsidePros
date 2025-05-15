@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.temp_project"
+    namespace = "com.roadisdepros.Roadside_Pros"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -35,6 +35,15 @@ android {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig = signingConfigs.getByName("debug")
+        }
+    }
+
+    // Add this block to customize the APK name
+    applicationVariants.all {
+        outputs.all {
+            if (buildType.name == "release") {
+                outputFileName.set("RoadsidePros-release.apk")
+            }
         }
     }
 }
