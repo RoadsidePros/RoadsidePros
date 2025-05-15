@@ -31,6 +31,16 @@ jobs:
       - name: Clean Flutter Build
         run: flutter clean
 
+      # Update Kotlin Version in build.gradle
+      - name: Update Kotlin Version
+        run: |
+          sed -i 's/ext.kotlin_version = ".*"/ext.kotlin_version = "2.1.0"/' android/build.gradle
+
+      # Update Gradle Wrapper to Latest Compatible Version
+      - name: Update Gradle Wrapper
+        run: |
+          echo "distributionUrl=https\\://services.gradle.org/distributions/gradle-8.0-all.zip" > android/gradle/wrapper/gradle-wrapper.properties
+
       # Build APK
       - name: Build APK
         run: flutter build apk --release
@@ -46,7 +56,7 @@ jobs:
 
       # Upload APK (after renaming)
       - name: Upload APK
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4.6.2
         with:
           name: Roadside_Pros.apk
           path: build/app/outputs/flutter-apk/Roadside_Pros.apk
