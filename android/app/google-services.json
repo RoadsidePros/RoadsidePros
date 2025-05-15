@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "613036902281",
+    "project_id": "roadsidepros-c6028",
+    "storage_bucket": "roadsidepros-c6028.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:613036902281:android:11a92aa0a53cd7f666c358",
+        "android_client_info": {
+          "package_name": "com.roadsidepros.roadsidepros"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMtzOklmPj2Dp9zATAPlQ9lPtNvKqaHyM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
