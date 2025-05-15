@@ -35,13 +35,17 @@ jobs:
       - name: Build APK
         run: flutter build apk --release
 
-      # Cache Clean
-      - name: Clean Flutter Build
-        run: flutter clean
-
       # Upload APK
       - name: Upload APK
         uses: actions/upload-artifact@v4.6.2
         with:
-          name: Roadside_Pros.apk
-          path: build/app/outputs/flutter-apk/Roadside_Pros.apk
+          name: app-release.apk
+          path: build/app/outputs/flutter-apk/app-release.apk
+
+      # Cache Clean
+      - name: Clean Flutter Build
+        run: flutter clean
+
+      # Rename APK
+      - name: Rename APK
+        run: mv build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/Roadside_Pros.apk
