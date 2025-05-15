@@ -40,4 +40,4 @@ jobs:
         uses: actions/upload-artifact@v4.6.2
         with:
           name: app-release
-          path: build/app/outputs/flutter-apk/app-release.apk
+          path: build/app/outputs/flutter-apk/Roadside_Pros.apk
