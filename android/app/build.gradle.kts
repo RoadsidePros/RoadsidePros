@@ -42,7 +42,7 @@ android {
     applicationVariants.all {
         outputs.all {
             if (buildType.name == "release") {
-                outputFileName.set("RoadsidePros-release.apk")
+                outputFileName.set("app-release.apk")
             }
         }
     }
