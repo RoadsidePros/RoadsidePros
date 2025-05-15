@@ -1,24 +1,27 @@
 import 'package:flutter/material.dart';
-import 'home_screen.dart';
+import 'auth_service.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
-
-  void _login(BuildContext context) {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => const HomeScreen()),
-    );
-  }
+  final AuthService _authService = AuthService();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Login')),
+      backgroundColor: Colors.black,
       body: Center(
-        child: ElevatedButton(
-          onPressed: () => _login(context),
-          child: const Text('Login'),
+        child: ElevatedButton.icon(
+          onPressed: () async {
+            final user = await _authService.signInWithGoogle();
+            if (user != null) {
+              Navigator.pushReplacementNamed(context, '/home');
+            }
+          },
+          icon: Icon(Icons.login),
+          label: Text('Sign in with Google'),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.yellow[700],
+            foregroundColor: Colors.black,
+          ),
         ),
       ),
     );
