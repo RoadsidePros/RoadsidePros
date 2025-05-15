@@ -23,29 +23,30 @@ jobs:
         with:
           flutter-version: '3.19.6'
 
-      # Regenerate Android directory
-      - name: Regenerate Android directory
-        run: flutter create .
-
       # Fetch dependencies
       - name: Install dependencies
         run: flutter pub get
+
+      # Clean Flutter Build (if necessary)
+      - name: Clean Flutter Build
+        run: flutter clean
 
       # Build APK
       - name: Build APK
         run: flutter build apk --release
 
-      # Upload APK
-      - name: Upload APK
-        uses: actions/upload-artifact@v4.6.2
-        with:
-          name: app-release.apk
-          path: build/app/outputs/flutter-apk/app-release.apk
+      # Debug Build Directory
+      - name: Debug Build Directory
+        run: ls -R build/app/outputs/
 
-      # Cache Clean
-      - name: Clean Flutter Build
-        run: flutter clean
-
-      # Rename APK
+      # Rename APK (if it exists)
       - name: Rename APK
+        if: success()
         run: mv build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/Roadside_Pros.apk
+
+      # Upload APK (after renaming)
+      - name: Upload APK
+        uses: actions/upload-artifact@v3
+        with:
+          name: Roadside_Pros.apk
+          path: build/app/outputs/flutter-apk/Roadside_Pros.apk
