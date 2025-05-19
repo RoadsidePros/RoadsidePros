@@ -1,5 +1,13 @@
 <activity
-    android:name=".MainActivity">
+    android:name=".MainActivity"
+    android:launchMode="singleTop"
+    android:theme="@style/LaunchTheme"
+    android:configChanges="orientation|screenSize|keyboardHidden"
+    android:hardwareAccelerated="true"
+    android:windowSoftInputMode="adjustResize">
+    <meta-data
+        android:name="flutterEmbedding"
+        android:value="2" />
     <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
         <category android:name="android.intent.category.LAUNCHER"/>
