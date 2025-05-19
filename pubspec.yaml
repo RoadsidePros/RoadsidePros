@@ -14,7 +14,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   firebase_core: ^3.17.0 # Latest stable as of May 2024
   firebase_auth: ^5.10.0 # Latest stable as of May 2024
-  google_sign_in: ^6.3.2 # Latest stable as of May 2024
+  google_sign_in: ^6.3.0 # Latest stable as of May 2024
 
 dev_dependencies:
   flutter_test:
