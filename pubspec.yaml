@@ -12,14 +12,14 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.8
-  firebase_auth: ^4.17.7 # Latest stable as of May 2024
+  firebase_auth: ^5.5.3 # Latest stable as of May 2024
   google_sign_in: ^6.3.0 # Latest stable as of May 2024
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   test: ^1.24.0 # Recommended for Dart 3.x
-  flutter_lints: ^4.0.0 # Recommended lint rules for Flutter
+  flutter_lints: ^5.0.0 # Recommended lint rules for Flutter
 
 flutter:
   uses-material-design: true
