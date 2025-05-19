@@ -1,5 +1,5 @@
 <activity
-    android:name=".MainActivity"
+    android:name="com.roadsidepros.roadsidepros.FlutterApplication"
     android:exported="true"
     android:launchMode="singleTop"
     android:theme="@style/LaunchTheme"
