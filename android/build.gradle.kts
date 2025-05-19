@@ -22,7 +22,3 @@ subprojects {
     buildDir = new File(rootProject.buildDir, name)
     evaluationDependsOn(":app")
 }
-
-tasks.register("clean", Delete) {
-    delete rootProject.buildDir
-}
