@@ -36,7 +36,7 @@ android {
         variant.outputs.all { output ->
             if (variant.buildType.name == "release") {
                 val outputImpl = output as com.android.build.gradle.internal.api.BaseVariantOutputImpl
-                outputImpl.outputFileName = "roadsidepros.apk"
+                outputImpl.outputFileName.set("roadsidepros.apk")
             }
         }
     }
