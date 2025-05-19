@@ -1,4 +1,6 @@
-import com.roadsidepros.roadsidepros.FlutterActivity
+package com.roadsidepros.roadsidepros;
 
-class MainActivity: FlutterActivity() {
+import io.flutter.embedding.android.FlutterActivity;
+
+public class MainActivity extends FlutterActivity {
 }
