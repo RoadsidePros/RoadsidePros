@@ -11,10 +11,13 @@ allprojects {
 }
 
 android {
+    // ... other android config ...
+
     applicationVariants.all { variant ->
         variant.outputs.all { output ->
             if (variant.buildType.name == "release") {
-                outputFileName = "RoadsidePros-release.apk"
+                // For AGP < 7.0.0, this works:
+                output.outputFileName = "RoadsidePros-release.apk"
             }
         }
     }
