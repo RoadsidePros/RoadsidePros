@@ -32,11 +32,12 @@ android {
         }
     }
 
-    applicationVariants.all { variant ->
-        variant.outputs.all { output ->
-            if (variant.buildType.name == "release") {
-                val outputImpl = output as com.android.build.gradle.internal.api.BaseVariantOutputImpl
-                outputImpl.outputFileName.set("roadsidepros.apk")
+    // FIXED: Use 'applicationVariants.all' with correct lambda signature and output file name assignment
+    applicationVariants.all {
+        outputs.all {
+            // Only for APK (not for AAB)
+            if (this is com.android.build.gradle.internal.api.BaseVariantOutputImpl && buildType.name == "release") {
+                outputFileName = "roadsidepros.apk"
             }
         }
     }
