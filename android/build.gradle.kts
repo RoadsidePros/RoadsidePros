@@ -9,7 +9,7 @@ android {
     applicationVariants.all {
         outputs.all {
             if (buildType.name == "release") {
-                (this as com.android.build.gradle.internal.api.BaseVariantOutputImpl).outputFileName = "RoadsidePros-release.apk"
+                (this as com.android.build.gradle.internal.api.BaseVariantOutputImpl).outputFileName = "roadsidepros-release.apk"
             }
         }
     }
