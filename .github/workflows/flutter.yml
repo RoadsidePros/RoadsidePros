@@ -50,7 +50,7 @@ jobs:
 
       # Build APK
       - name: Build APK
-        run: flutter build apk --release
+        run: flutter build apk --release -v
 
       # Debug Build Directory
       - name: Debug Build Directory
