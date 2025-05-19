@@ -32,10 +32,11 @@ android {
         }
     }
 
-    applicationVariants.all {
-        outputs.all {
-            if (buildType.name == "release") {
-                outputFileName.set("roadsidepros.apk")
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            if (variant.buildType.name == "release") {
+                val outputImpl = output as com.android.build.gradle.internal.api.BaseVariantOutputImpl
+                outputImpl.outputFileName = "roadsidepros.apk"
             }
         }
     }
