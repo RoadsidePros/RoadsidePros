@@ -1,7 +1,6 @@
-// ✅ Add this plugins block at the top
 plugins {
-    id("com.android.application")
-    kotlin("android")
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
 }
 
 allprojects {
@@ -12,26 +11,23 @@ allprojects {
 }
 
 android {
-    applicationVariants.all {
-        outputs.all {
-            if (buildType.name == "release") {
-                outputFileName.set("RoadsidePros-release.apk")
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            if (variant.buildType.name == "release") {
+                outputFileName = "RoadsidePros-release.apk"
             }
         }
     }
 }
 
-val newBuildDir: Directory = rootProject.layout.buildDirectory.dir("../../build").get()
-rootProject.layout.buildDirectory.value(newBuildDir)
+def newBuildDir = new File(rootDir, "../build")
+buildDir = newBuildDir
 
 subprojects {
-    val newSubprojectBuildDir: Directory = newBuildDir.dir(project.name)
-    project.layout.buildDirectory.value(newSubprojectBuildDir)
-}
-subprojects {
-    project.evaluationDependsOn(":app")
+    buildDir = new File(rootProject.buildDir, name)
+    evaluationDependsOn(":app")
 }
 
-tasks.register<Delete>("clean") {
-    delete(rootProject.layout.buildDirectory)
+tasks.register("clean", Delete) {
+    delete rootProject.buildDir
 }
