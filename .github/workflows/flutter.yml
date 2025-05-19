@@ -17,6 +17,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      # Set up JDK 17
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
       # Set up Flutter
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
@@ -36,10 +43,10 @@ jobs:
         run: |
           sed -i 's/ext.kotlin_version = ".*"/ext.kotlin_version = "2.1.0"/' android/build.gradle
 
-      # Update Gradle Wrapper to Latest Compatible Version
-      - name: Update Gradle Wrapper
+      # Ensure Gradle Wrapper is 8.9
+      - name: Ensure Gradle Wrapper 8.9
         run: |
-          echo "distributionUrl=https\\://services.gradle.org/distributions/gradle-8.0-all.zip" > android/gradle/wrapper/gradle-wrapper.properties
+          sed -i 's#distributionUrl=.*#distributionUrl=https\\://services.gradle.org/distributions/gradle-8.9-all.zip#' android/gradle/wrapper/gradle-wrapper.properties
 
       # Build APK
       - name: Build APK
