@@ -2,10 +2,9 @@
     package="io.roadsidepros.roadsidepros">
 
     <application
-        android:name="io.flutter.app.FlutterApplication"
         android:label="Roadside Pros"
         android:icon="@mipmap/ic_launcher">
-        
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
