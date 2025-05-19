@@ -3,18 +3,13 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-    }
-}
-
 android {
+    // ... other android config
+
     applicationVariants.all { variant ->
         variant.outputs.all { output ->
             if (variant.buildType.name == "release") {
-                outputFileName = "RoadsidePros-release.apk"
+                output.outputFileName = "RoadsidePros-release.apk"
             }
         }
     }
