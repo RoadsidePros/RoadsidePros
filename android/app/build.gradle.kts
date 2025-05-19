@@ -20,7 +20,7 @@ android {
 
     defaultConfig {
         applicationId = "com.roadsidepros.roadsidepros"
-        minSdk = 19
+        minSdk = 21
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
