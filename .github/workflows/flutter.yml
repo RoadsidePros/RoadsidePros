@@ -13,55 +13,61 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Set up JDK 17
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
 
-      # Set up Flutter
+      - name: Cache Flutter dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.pub-cache
+            android/.gradle
+          key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.yaml') }}
+
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.29.3'
 
-      # Fetch dependencies
       - name: Install dependencies
         run: flutter pub get
 
-      # Clean Flutter Build (if necessary)
       - name: Clean Flutter Build
         run: flutter clean
 
-      # Update Kotlin Version in build.gradle
       - name: Update Kotlin Version
-        run: |
-          sed -i 's/ext.kotlin_version = ".*"/ext.kotlin_version = "2.1.0"/' android/build.gradle
+        run: sed -i 's/ext.kotlin_version = ".*"/ext.kotlin_version = "2.1.0"/' android/build.gradle
 
-      # Ensure Gradle Wrapper is 8.9
       - name: Ensure Gradle Wrapper 8.9
-        run: |
-          sed -i 's#distributionUrl=.*#distributionUrl=https\\://services.gradle.org/distributions/gradle-8.9-all.zip#' android/gradle/wrapper/gradle-wrapper.properties
+        run: sed -i 's#distributionUrl=.*#distributionUrl=https\\://services.gradle.org/distributions/gradle-8.9-all.zip#' android/gradle/wrapper/gradle-wrapper.properties
 
-      # Build APK
+      - name: Install Android NDK
+        run: yes | sdkmanager "ndk-bundle"
+
+      - name: Set Android NDK Path
+        run: echo "ndk.dir=$ANDROID_SDK_ROOT/ndk-bundle" >> android/local.properties
+
+      - name: Debug Android SDK and NDK
+        run: |
+          ls $ANDROID_SDK_ROOT/ndk || echo "NDK directory missing"
+          ls /usr/local/lib/android/ndk || echo "NDK directory missing"
+
       - name: Build APK
         run: flutter build apk --release -v
 
-      # Debug Build Directory
       - name: Debug Build Directory
         run: ls -R build/app/outputs/
 
-      # Rename APK (if it exists)
       - name: Rename APK
         if: success()
         run: mv build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/Roadside_Pros.apk
 
-      # Upload APK (after renaming)
       - name: Upload APK
         uses: actions/upload-artifact@v4.6.2
         with:
