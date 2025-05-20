@@ -18,16 +18,16 @@ jobs:
 
       - name: Fix permissions and create necessary directories
         run: |
-          sudo mkdir -p /var/lib/apt/lists /var/cache/apt
-          sudo chown -R $USER:$USER /var/lib/apt/lists /var/cache/apt
-          sudo chmod -R 755 /var/lib/apt/lists /var/cache/apt
+          mkdir -p /var/lib/apt/lists /var/cache/apt
+          chown -R $USER:$USER /var/lib/apt/lists /var/cache/apt
+          chmod -R 755 /var/lib/apt/lists /var/cache/apt
           mkdir -p $HOME/android-sdk/cmdline-tools/latest
           mkdir -p android/.gradle build/app/outputs/flutter-apk
 
-      - name: Install Essential Utilities (with sudo & permission fix)
+      - name: Install Essential Utilities (permission fix)
         run: |
-          sudo apt-get update
-          sudo apt-get install -y coreutils build-essential curl unzip
+          apt-get update
+          apt-get install -y coreutils build-essential curl unzip
 
       - name: Set up JDK 17
         uses: actions/setup-java@v4
@@ -60,32 +60,32 @@ jobs:
       - name: Ensure Gradle Wrapper 8.9
         run: sed -i 's#distributionUrl=.*#distributionUrl=https\\://services.gradle.org/distributions/gradle-8.9-all.zip#' android/gradle/wrapper/gradle-wrapper.properties
 
-      - name: Install Android Command-Line Tools and NDK (robust, with sudo and permission checks)
+      - name: Install Android Command-Line Tools and NDK (robust, with permission checks)
         shell: bash
         run: |
           if ! command -v mkdir >/dev/null 2>&1; then
             echo "'mkdir' not found. Installing coreutils..."
-            sudo apt-get update
-            sudo apt-get install -y coreutils
+            apt-get update
+            apt-get install -y coreutils
           fi
           if ! mkdir -p $HOME/android-sdk/cmdline-tools/latest; then
             echo "mkdir failed, attempting fallback with install -d..."
             if ! command -v install >/dev/null 2>&1; then
               echo "'install' not found. Installing build-essential..."
-              sudo apt-get update
-              sudo apt-get install -y build-essential
+              apt-get update
+              apt-get install -y build-essential
             fi
             install -d $HOME/android-sdk/cmdline-tools/latest
           fi
           if ! command -v curl >/dev/null 2>&1; then
             echo "'curl' not found. Installing curl..."
-            sudo apt-get update
-            sudo apt-get install -y curl
+            apt-get update
+            apt-get install -y curl
           fi
           if ! command -v unzip >/dev/null 2>&1; then
             echo "'unzip' not found. Installing unzip..."
-            sudo apt-get update
-            sudo apt-get install -y unzip
+            apt-get update
+            apt-get install -y unzip
           fi
           curl -o commandlinetools.zip https://dl.google.com/android/repository/commandlinetools-linux-8092744_latest.zip
           unzip -qq commandlinetools.zip -d $HOME/android-sdk/cmdline-tools/latest
