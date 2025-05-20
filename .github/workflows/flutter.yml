@@ -16,15 +16,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Fix permissions and create necessary directories
+      - name: Create necessary directories (user space)
         run: |
-          mkdir -p /var/lib/apt/lists /var/cache/apt
-          chown -R $USER:$USER /var/lib/apt/lists /var/cache/apt
-          chmod -R 755 /var/lib/apt/lists /var/cache/apt
           mkdir -p $HOME/android-sdk/cmdline-tools/latest
           mkdir -p android/.gradle build/app/outputs/flutter-apk
 
-      - name: Install Essential Utilities (permission fix)
+      - name: Install Essential Utilities
         run: |
           apt-get update
           apt-get install -y coreutils build-essential curl unzip
