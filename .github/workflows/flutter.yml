@@ -13,10 +13,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
-      - name: Install yes command
+      - name: Install coreutils
         run: sudo apt-get update && sudo apt-get install -y coreutils
-              
+
       - name: Checkout code
         uses: actions/checkout@v3
 
