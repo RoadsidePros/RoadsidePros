@@ -13,6 +13,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
+      - name: Install yes command
+        run: sudo apt-get update && sudo apt-get install -y coreutils
+              
       - name: Checkout code
         uses: actions/checkout@v3
 
@@ -46,9 +50,6 @@ jobs:
 
       - name: Ensure Gradle Wrapper 8.9
         run: sed -i 's#distributionUrl=.*#distributionUrl=https\\://services.gradle.org/distributions/gradle-8.9-all.zip#' android/gradle/wrapper/gradle-wrapper.properties
-
-      - name: Install yes command
-        run: sudo apt-get update && sudo apt-get install -y coreutils
 
       - name: Install Android Command-Line Tools and NDK
         run: |
