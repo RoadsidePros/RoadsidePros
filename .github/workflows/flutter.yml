@@ -47,16 +47,35 @@ jobs:
       - name: Ensure Gradle Wrapper 8.9
         run: sed -i 's#distributionUrl=.*#distributionUrl=https\\://services.gradle.org/distributions/gradle-8.9-all.zip#' android/gradle/wrapper/gradle-wrapper.properties
 
+      - name: Install Android Command Line Tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y lib32stdc++6 lib32z1
+          wget https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip
+          mkdir -p $HOME/android-sdk/cmdline-tools
+          unzip commandlinetools-linux-9477386_latest.zip -d $HOME/android-sdk/cmdline-tools
+          mv $HOME/android-sdk/cmdline-tools/cmdline-tools $HOME/android-sdk/cmdline-tools/latest
+        env:
+          ANDROID_HOME: $HOME/android-sdk
+          PATH: $HOME/android-sdk/cmdline-tools/latest/bin:$HOME/android-sdk/platform-tools:$PATH
+
       - name: Install Android NDK
         run: yes | sdkmanager "ndk-bundle"
+        env:
+          ANDROID_HOME: $HOME/android-sdk
+          PATH: $HOME/android-sdk/cmdline-tools/latest/bin:$HOME/android-sdk/platform-tools:$PATH
 
       - name: Set Android NDK Path
-        run: echo "ndk.dir=$ANDROID_SDK_ROOT/ndk-bundle" >> android/local.properties
+        run: echo "ndk.dir=$ANDROID_HOME/ndk-bundle" >> android/local.properties
+        env:
+          ANDROID_HOME: $HOME/android-sdk
 
       - name: Debug Android SDK and NDK
         run: |
-          ls $ANDROID_SDK_ROOT/ndk || echo "NDK directory missing"
+          ls $ANDROID_HOME/ndk || echo "NDK directory missing"
           ls /usr/local/lib/android/ndk || echo "NDK directory missing"
+        env:
+          ANDROID_HOME: $HOME/android-sdk
 
       - name: Build APK
         run: flutter build apk --release -v
