@@ -13,21 +13,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Install coreutils and Debug Environment
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install Essential Utilities
         run: |
           sudo apt-get update
           sudo apt-get install -y coreutils
-          echo "Checking if mkdir is available..."
-          command -v mkdir || echo "mkdir command is missing"
-          echo "Listing /bin and /usr/bin directories for diagnostics:"
-          ls /bin || echo "/bin directory is missing"
-          ls /usr/bin || echo "/usr/bin directory is missing"
-
-      - name: Verify mkdir Command
-        run: command -v mkdir || echo "mkdir command is missing"
-
-      - name: Checkout code
-        uses: actions/checkout@v3
 
       - name: Set up JDK 17
         uses: actions/setup-java@v4
