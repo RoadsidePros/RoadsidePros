@@ -47,8 +47,17 @@ jobs:
       - name: Ensure Gradle Wrapper 8.9
         run: sed -i 's#distributionUrl=.*#distributionUrl=https\\://services.gradle.org/distributions/gradle-8.9-all.zip#' android/gradle/wrapper/gradle-wrapper.properties
 
-      - name: Install Android NDK
-        run: yes | sdkmanager "ndk-bundle"
+      - name: Install yes command
+        run: sudo apt-get update && sudo apt-get install -y coreutils
+
+      - name: Install Android Command-Line Tools and NDK
+        run: |
+          mkdir -p $HOME/android-sdk/cmdline-tools/latest
+          curl -o commandlinetools.zip https://dl.google.com/android/repository/commandlinetools-linux-8092744_latest.zip
+          unzip -qq commandlinetools.zip -d $HOME/android-sdk/cmdline-tools/latest
+          rm commandlinetools.zip
+          yes | $HOME/android-sdk/cmdline-tools/latest/bin/sdkmanager --licenses
+          yes | $HOME/android-sdk/cmdline-tools/latest/bin/sdkmanager "ndk-bundle"
         env:
           ANDROID_HOME: $HOME/android-sdk
           PATH: $HOME/android-sdk/cmdline-tools/latest/bin:$HOME/android-sdk/platform-tools:$PATH
