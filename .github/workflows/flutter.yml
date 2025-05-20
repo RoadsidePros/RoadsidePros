@@ -47,8 +47,6 @@ jobs:
       - name: Ensure Gradle Wrapper 8.9
         run: sed -i 's#distributionUrl=.*#distributionUrl=https\\://services.gradle.org/distributions/gradle-8.9-all.zip#' android/gradle/wrapper/gradle-wrapper.properties
 
-      Build #104
-
       - name: Install Android NDK
         run: yes | sdkmanager "ndk-bundle"
         env:
