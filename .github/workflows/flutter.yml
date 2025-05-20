@@ -13,14 +13,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Install coreutils
+      - name: Install coreutils and Debug Environment
         run: |
           sudo apt-get update
           sudo apt-get install -y coreutils
-          mkdir --version
+          echo "Checking if mkdir is available..."
+          command -v mkdir || echo "mkdir command is missing"
+          echo "Listing /bin and /usr/bin directories for diagnostics:"
+          ls /bin || echo "/bin directory is missing"
+          ls /usr/bin || echo "/usr/bin directory is missing"
 
       - name: Verify mkdir Command
-        run: mkdir --version
+        run: command -v mkdir || echo "mkdir command is missing"
 
       - name: Checkout code
         uses: actions/checkout@v3
@@ -56,9 +60,12 @@ jobs:
       - name: Ensure Gradle Wrapper 8.9
         run: sed -i 's#distributionUrl=.*#distributionUrl=https\\://services.gradle.org/distributions/gradle-8.9-all.zip#' android/gradle/wrapper/gradle-wrapper.properties
 
-      - name: Install Android Command-Line Tools and NDK
+      - name: Install Android Command-Line Tools and NDK (with mkdir fallback)
         run: |
-          mkdir -p $HOME/android-sdk/cmdline-tools/latest
+          if ! mkdir -p $HOME/android-sdk/cmdline-tools/latest; then
+            echo "mkdir failed, attempting fallback with install -d..."
+            install -d $HOME/android-sdk/cmdline-tools/latest
+          fi
           curl -o commandlinetools.zip https://dl.google.com/android/repository/commandlinetools-linux-8092744_latest.zip
           unzip -qq commandlinetools.zip -d $HOME/android-sdk/cmdline-tools/latest
           rm commandlinetools.zip
